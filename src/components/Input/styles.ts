@@ -9,7 +9,7 @@ export const getStyles = createStyleSheet(
       gap: constants.spacing.xs,
     },
     errorText: {
-      color: 'red',
+      color: colors.error,
       marginLeft: constants.spacing.xs,
     },
     textInputWrapper: (isFocused: boolean) => {

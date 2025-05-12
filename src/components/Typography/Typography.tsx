@@ -5,22 +5,29 @@ import { useStyles } from '@/hooks/useStyles';
 
 import { getStyles } from './styles';
 import type { TTypographyProps } from './types';
+import { Link } from 'expo-router';
 
 export const Typography = forwardRef<Text, TTypographyProps>(
-  ({ variant, centered, style, ...props }, ref) => {
+  ({ variant, centered, style, isLink, href, replace, ...props }, ref) => {
     const styles = useStyles(getStyles);
 
-    const BaseTypography = useMemo(
+    const BaseTextComponent = useMemo(
       () => (
         <Text
           ref={ref}
           {...props}
-          style={[styles.typography(variant, centered, false), style]}
+          style={[styles.typography(variant, centered, isLink), style]}
         />
       ),
-      [props, styles, style, centered, variant, ref]
+      [ref, props, variant, centered, isLink, style]
     );
 
-    return BaseTypography;
+    if (!isLink) return BaseTextComponent;
+
+    return (
+      <Link href={href} asChild replace={replace}>
+        {BaseTextComponent}
+      </Link>
+    );
   }
 );

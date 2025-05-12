@@ -7,6 +7,9 @@ export type ITypographyVariant = keyof IThemeTypography;
 export interface IBaseTypographyProps extends TextProps {
   variant: ITypographyVariant;
   centered?: boolean;
+  isLink?: boolean;
+  href?: string;
+  replace?: boolean;
 }
 
-export type TTypographyProps = IBaseTypographyProps ;
+export type TTypographyProps = IBaseTypographyProps;

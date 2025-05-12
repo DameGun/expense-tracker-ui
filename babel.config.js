@@ -1,4 +1,4 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
 
   if (process.env.LIBRARY_BUILD === 'true') {
@@ -14,11 +14,10 @@ module.exports = function(api) {
           },
         ],
       ],
-    }
+    };
   }
 
   return {
     presets: ['babel-preset-expo'],
-
   };
 };

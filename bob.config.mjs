@@ -6,7 +6,7 @@ export default {
       'module',
       {
         esm: true,
-        configFile: true
+        configFile: true,
       },
     ],
     [
@@ -16,5 +16,4 @@ export default {
       },
     ],
   ],
-
 };

@@ -1,16 +1,13 @@
-import type { FC } from 'react';
-import SVG, { Path } from 'react-native-svg';
+import { Path } from 'react-native-svg';
 
-import type { ISVGProps } from '@/types/assets';
+import { createIcon } from '@/helpers/createIcon';
 
-export const ArrowBackIcon: FC<ISVGProps> = () => (
-  <SVG width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M3 12L8 17M3 12L8 7M3 12H21"
-      stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </SVG>
-);
+export const ArrowBackIcon = createIcon(({ color }) => (
+  <Path
+    d="M3 12L8 17M3 12L8 7M3 12H21"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+));

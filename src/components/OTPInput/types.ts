@@ -1,5 +1,5 @@
 export interface IOTPInputProps {
-  originalCode: string;
-  isPinReady: boolean;
+  isPinError: boolean;
   setIsPinReady(isPinReady: boolean): void;
+  disabled?: boolean;
 }

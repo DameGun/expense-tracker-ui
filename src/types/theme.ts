@@ -16,7 +16,7 @@ export type TThemeConstantsSizes<T extends string = ''> = [T] extends ['']
 
 export interface IThemeConstants {
   borderRadius: TThemeConstantsSizes<'xs' | 'md2'>;
-  spacing: TThemeConstantsSizes<'xs' | 'xl'>;
+  spacing: TThemeConstantsSizes<'xs2' | 'xs' | 'xl'>;
   borderWidth: TThemeConstantsSizes;
   opacity: TThemeConstantsSizes<'none' | 'full'>;
 }
@@ -32,6 +32,8 @@ export interface IThemeColors {
   textBlack: string;
   textSecondary: string;
   textGray: string;
+  success: string;
+  error: string;
 }
 
 export interface IThemeTypographyValue {
@@ -65,3 +67,5 @@ export interface IThemeContext {
 }
 
 export type TUseThemeSelectorFn<T> = (themeContext: IThemeContext) => T;
+
+export type TThemeColorsKeys = keyof IThemeColors;

@@ -16,6 +16,8 @@ export const themeColors: IThemeColors = {
   textBlack: '#000000',
   textSecondary: '#565D6D',
   textGray: '#BDC1CA',
+  success: '#5CB338',
+  error: '#FB4141',
 };
 
 export const themeConstants: IThemeConstants = {
@@ -27,6 +29,7 @@ export const themeConstants: IThemeConstants = {
     lg: 20,
   },
   spacing: {
+    xs2: 2,
     xs: 6,
     sm: 10,
     md: 16,

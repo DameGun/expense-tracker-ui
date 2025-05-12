@@ -1,5 +1,10 @@
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import {
+  type NativeSyntheticEvent,
+  TextInput,
+  type TextInputKeyPressEventData,
+  View,
+} from 'react-native';
 
 import { useStyles } from '@/hooks/useStyles';
 import type { Nullable } from '@/types/common';
@@ -10,9 +15,9 @@ import type { IOTPInputProps } from './types';
 import { Typography } from '../Typography';
 
 export const OTPInput: FC<IOTPInputProps> = ({
-  isPinReady,
-  originalCode,
+  isPinError,
   setIsPinReady,
+  disabled,
 }) => {
   const refs = useRef<Array<Nullable<TextInput>>>([]);
   const [focusedIndex, setFocusedIndex] = useState<Nullable<number>>(0);
@@ -21,7 +26,7 @@ export const OTPInput: FC<IOTPInputProps> = ({
 
   const handleFocusedIndex = useCallback(
     (index: number, value?: string) => {
-      let newFocusedIndex = index;
+      let newFocusedIndex: number;
 
       if (!value) {
         newFocusedIndex = index === 0 ? index : index - 1;
@@ -53,17 +58,21 @@ export const OTPInput: FC<IOTPInputProps> = ({
     []
   );
 
+  const handleBackspace = useCallback(
+    (index: number) =>
+      (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        if (e.nativeEvent.key !== 'Backspace') return;
+
+        handleFocusedIndex(index, '');
+      },
+    [handleFocusedIndex]
+  );
+
   const handleBlur = useCallback(() => setFocusedIndex(null), []);
 
   useEffect(() => {
-    if (codes.filter(Boolean).length === 4 && codes.join('') === originalCode) {
-      setIsPinReady(true);
-
-      return;
-    }
-
-    setIsPinReady(false);
-  }, [codes, originalCode, setIsPinReady]);
+    setIsPinReady(codes.join('').length === 4);
+  }, [codes, setIsPinReady]);
 
   return (
     <View style={styles.otpContainer}>
@@ -71,9 +80,8 @@ export const OTPInput: FC<IOTPInputProps> = ({
         {codes.map((code, index) => (
           <TextInput
             key={index}
-            ref={(el) => {
-              if (refs.current) refs.current[index] = el;
-            }}
+            editable={!disabled}
+            ref={(el) => (refs.current[index] = el)}
             autoComplete="one-time-code"
             enterKeyHint="next"
             inputMode="numeric"
@@ -83,14 +91,14 @@ export const OTPInput: FC<IOTPInputProps> = ({
             onFocus={handleFocus(index)}
             onChangeText={handleTextChange(index)}
             style={styles.splittedBoxes(focusedIndex === index)}
-            onKeyPress={(e) => console.log(e.nativeEvent.key)}
+            onKeyPress={handleBackspace(index)}
           />
         ))}
       </View>
       <Typography
         variant="lg-600"
         centered
-        style={styles.errorMessage(isPinReady)}
+        style={styles.errorMessage(isPinError)}
       >
         Code is invalid
       </Typography>

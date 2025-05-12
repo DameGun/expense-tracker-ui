@@ -29,9 +29,9 @@ export const getStyles = createStyleSheet(
       display: 'flex',
       gap: constants.spacing.md,
     },
-    errorMessage: (isValid: boolean) => ({
+    errorMessage: (isError: boolean) => ({
       color: 'red',
-      visibility: isValid ? 'hidden' : 'visible',
+      visibility: isError ? 'visible' : 'hidden',
     }),
   })
 );

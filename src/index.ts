@@ -5,4 +5,3 @@ export * from './helpers';
 export * from './hooks';
 export * from './providers';
 export type * from './types';
-export * from './types';

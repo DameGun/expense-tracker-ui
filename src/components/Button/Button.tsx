@@ -1,5 +1,10 @@
-import { forwardRef } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { forwardRef, useCallback } from 'react';
+import {
+  Pressable,
+  type PressableStateCallbackType,
+  Text,
+  View,
+} from 'react-native';
 
 import { useStyles } from '@/hooks/useStyles';
 
@@ -13,18 +18,27 @@ export const Button = forwardRef<View, ButtonProps>(
       disabled,
       isFullWidth = true,
       IconComponent,
+      style,
       ...pressableProps
     },
     ref
   ) => {
     const styles = useStyles(getStyles);
 
+    const mergedStyles = useCallback(
+      (state: PressableStateCallbackType) => [
+        styles.button(disabled, isFullWidth)(state),
+        typeof style === 'function' ? style(state) : style,
+      ],
+      [disabled, isFullWidth, style, styles]
+    );
+
     return (
       <Pressable
         {...pressableProps}
         ref={ref}
         disabled={disabled}
-        style={styles.button(disabled, isFullWidth)}
+        style={mergedStyles}
       >
         <View style={styles.buttonContentContainer}>
           {IconComponent && <IconComponent />}
