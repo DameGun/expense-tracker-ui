@@ -3,34 +3,22 @@
   "private": true,
   "name": "expense-tracker-ui",
   "packageManager": "yarn@4.5.0",
-  "files": [
-    "lib",
-    "src"
-  ],
-  "source": "./src/index.tsx",
-  "main": "./lib/module/index.js",
-  "types": "./lib/typescript/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./lib/typescript/src/index.d.ts",
-      "default": "./lib/module/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "start": "expo start",
     "storybook-generate": "sb-rn-get-stories -js",
-    "storybook": "cross-env STORYBOOK_ENABLED='true' expo start",
-    "storybook:ios": "cross-env STORYBOOK_ENABLED='true' expo start --ios",
-    "storybook:android": "cross-env STORYBOOK_ENABLED='true' expo start --android",
-    "prepare": "cross-env LIBRARY_BUILD='true' bob build && tsc-alias && cross-env LIBRARY_BUILD='false'"
+    "storybook": "npm run prepare:storybook && cross-env STORYBOOK_ENABLED='true' expo start",
+    "storybook:ios": "npm run prepare:storybook && cross-env STORYBOOK_ENABLED='true' expo start --ios",
+    "storybook:android": "npm run prepare:storybook && cross-env STORYBOOK_ENABLED='true' expo start --android",
+    "prepare:storybook": "node build-prepare-script.js",
+    "prepare:build": "node build-prepare-script.js --build",
+    "build": "npm run prepare:build && cross-env LIBRARY_BUILD='true' bob build && tsc-alias && cross-env LIBRARY_BUILD='false'"
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
     "@expo/vector-icons": "^14.0.3",
     "@types/react": "~18.3.12",
-    "expo": "^52.0.46",
+    "expo": "^53.0.9",
     "expo-constants": "~17.0.8",
     "expo-linking": "~7.0.5",
     "expo-router": "~4.0.20",
@@ -47,7 +35,6 @@
     "@eslint/js": "^9.24.0",
     "@gorhom/bottom-sheet": "^4.6.4",
     "@react-native-async-storage/async-storage": "1.23.1",
-    "@react-native-community/datetimepicker": "8.2.0",
     "@react-native-community/slider": "4.5.5",
     "@react-native/eslint-config": "^0.79.1",
     "@storybook/addon-ondevice-actions": "^8.3.5",
@@ -76,5 +63,19 @@
     "react-dom": "*",
     "react-hook-form": "*",
     "react-native": "*"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "source": "./src/index.tsx",
+  "main": "./lib/module/index.js",
+  "types": "./lib/typescript/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/typescript/src/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
   }
 }

@@ -18,9 +18,9 @@ export const getStyles = createStyleSheet(
       borderRadius: constants.borderRadius.md,
       padding: constants.spacing.sm,
       backgroundColor: colors.backgroundSecondaryGray,
-      height: 70,
-      width: 70,
-      ...typography['xl-600'],
+      height: 50,
+      width: 50,
+      ...typography['lg-600'],
       lineHeight: 0,
       textAlign: 'center',
       color: colors.textBlack,
@@ -30,8 +30,7 @@ export const getStyles = createStyleSheet(
       gap: constants.spacing.md,
     },
     errorMessage: (isError: boolean) => ({
-      color: 'red',
-      visibility: isError ? 'visible' : 'hidden',
+      color: isError ? colors.error : colors.background,
     }),
   })
 );

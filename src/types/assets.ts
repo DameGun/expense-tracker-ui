@@ -1,3 +1,4 @@
+import type { ViewStyle } from 'react-native';
 import type { NumberProp } from 'react-native-svg';
 
 export interface ISVGStyleObject {
@@ -8,4 +9,5 @@ export interface ISVGStyleObject {
 export interface ISVGProps {
   color?: string;
   style?: ISVGStyleObject;
+  viewStyle?: ViewStyle;
 }

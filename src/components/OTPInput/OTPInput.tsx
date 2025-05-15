@@ -14,14 +14,19 @@ import type { IOTPInputProps } from './types';
 
 import { Typography } from '../Typography';
 
+const OTP_LENGTH = 6;
+
 export const OTPInput: FC<IOTPInputProps> = ({
   isPinError,
   setIsPinReady,
+  setPin,
   disabled,
 }) => {
   const refs = useRef<Array<Nullable<TextInput>>>([]);
   const [focusedIndex, setFocusedIndex] = useState<Nullable<number>>(0);
-  const [codes, setCodes] = useState<Array<string>>(new Array(4).fill(0));
+  const [codes, setCodes] = useState<Array<string>>(
+    new Array(OTP_LENGTH).fill(0)
+  );
   const styles = useStyles(getStyles);
 
   const handleFocusedIndex = useCallback(
@@ -71,8 +76,12 @@ export const OTPInput: FC<IOTPInputProps> = ({
   const handleBlur = useCallback(() => setFocusedIndex(null), []);
 
   useEffect(() => {
-    setIsPinReady(codes.join('').length === 4);
-  }, [codes, setIsPinReady]);
+    const pin = codes.join('');
+    const isPinReady = pin.length === OTP_LENGTH;
+
+    setIsPinReady(isPinReady);
+    setPin(isPinReady ? pin : '');
+  }, [codes, setIsPinReady, setPin]);
 
   return (
     <View style={styles.otpContainer}>
