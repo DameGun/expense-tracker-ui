@@ -12,8 +12,10 @@ export type TStylesObjectFn = (
   ...args: any[]
 ) => TStylesObject | TStylesObjectFn;
 
+export type TIconComponentType = ElementType<ISVGProps>;
+
 export interface IPropsWithIcon {
-  IconComponent?: ElementType<ISVGProps>;
+  IconComponent?: TIconComponentType;
 }
 
 export type TStyleSheetFn<T extends TNamedStyles> = (theme: ITheme) => T;

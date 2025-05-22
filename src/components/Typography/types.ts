@@ -1,11 +1,9 @@
 import type { TextProps } from 'react-native';
 
-import type { IThemeTypography } from '@/types/theme';
-
-export type ITypographyVariant = keyof IThemeTypography;
+import type { TTypographyVariant } from '@/types/theme';
 
 export interface IBaseTypographyProps extends TextProps {
-  variant: ITypographyVariant;
+  variant: TTypographyVariant;
   centered?: boolean;
   isLink?: boolean;
   href?: string;

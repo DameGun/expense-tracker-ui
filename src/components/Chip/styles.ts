@@ -6,17 +6,18 @@ export const getStyles = createStyleSheet(({ constants, colors }) => ({
     display: 'flex',
     flexDirection: 'row',
     gap: constants.spacing.xs,
-    borderRadius: constants.borderRadius.md,
+    borderRadius: constants.borderRadius.circle,
     alignItems: 'center',
-    paddingHorizontal: constants.spacing.xs,
-    paddingVertical: constants.spacing.xs2,
+    paddingHorizontal: constants.spacing.sm,
+    paddingVertical: constants.spacing.xs,
     backgroundColor: getColorWithOpacity(colors[color], 0.5),
+    flexGrow: 0,
   }),
   text: (color: TThemeColorsKeys) => ({
     color: colors[color],
   }),
   removeIcon: {
-    height: 12,
-    width: 12,
+    height: 24,
+    width: 24,
   },
 }));

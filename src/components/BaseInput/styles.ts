@@ -17,9 +17,6 @@ export const getStyles = createStyleSheet(({ constants, colors }) => ({
     paddingHorizontal: constants.spacing.sm,
     paddingVertical: constants.spacing.md,
   },
-  chevronIcon: (isDropdownVisible: boolean) => ({
-    transform: [{ rotate: `${isDropdownVisible ? 180 : 0}deg` }],
-  }),
   inputText: (isPlaceholder: boolean) => ({
     flexGrow: 1,
     color: isPlaceholder ? colors.secondary : colors.textBlack,

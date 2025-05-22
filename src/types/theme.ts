@@ -15,7 +15,7 @@ export type TThemeConstantsSizes<T extends string = ''> = [T] extends ['']
     };
 
 export interface IThemeConstants {
-  borderRadius: TThemeConstantsSizes<'xs' | 'md2'>;
+  borderRadius: TThemeConstantsSizes<'xs' | 'md2' | 'circle'>;
   spacing: TThemeConstantsSizes<'xs2' | 'xs' | 'xl'>;
   borderWidth: TThemeConstantsSizes;
   opacity: TThemeConstantsSizes<'none' | 'full'>;
@@ -42,21 +42,25 @@ export interface IThemeTypographyValue {
   lineHeight?: number;
 }
 
-export interface IThemeTypography {
-  'xs-400': IThemeTypographyValue;
-  'xs-600': IThemeTypographyValue;
-  's-400': IThemeTypographyValue;
-  's-500': IThemeTypographyValue;
-  'm-400': IThemeTypographyValue;
-  'm-600': IThemeTypographyValue;
-  'lg-600': IThemeTypographyValue;
-  'lg2-600': IThemeTypographyValue;
-  'xl-600': IThemeTypographyValue;
-}
+export type TTypographyVariant =
+  | 'xs-400'
+  | 'xs-600'
+  | 's-400'
+  | 's-500'
+  | 'm-400'
+  | 'm-600'
+  | 'lg-600'
+  | 'lg-400'
+  | 'lg2-600'
+  | 'xl-600';
+
+export type TThemeTypography = {
+  [K in TTypographyVariant]: IThemeTypographyValue;
+};
 
 export interface ITheme {
   constants: IThemeConstants;
-  typography: IThemeTypography;
+  typography: TThemeTypography;
   colors: IThemeColors;
   mode: TThemeMode;
 }

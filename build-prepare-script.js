@@ -32,4 +32,7 @@ console.log(
 fs.writeFileSync('./package.json', JSON.stringify(resultedPackageFileObject));
 
 console.log('[expense-tracker-ui-internal] Running prettier');
+
 execSync(`npx prettier --write ./package.json`);
+
+console.log('[expense-tracker-ui-internal] Build prepare script completed');

@@ -2,7 +2,7 @@ import type {
   ITheme,
   IThemeColors,
   IThemeConstants,
-  IThemeTypography,
+  TThemeTypography,
 } from '@/types/theme';
 
 export const themeColors: IThemeColors = {
@@ -27,6 +27,7 @@ export const themeConstants: IThemeConstants = {
     md: 10,
     md2: 12,
     lg: 20,
+    circle: 50,
   },
   spacing: {
     xs2: 2,
@@ -50,7 +51,7 @@ export const themeConstants: IThemeConstants = {
   },
 };
 
-export const themeTypography: IThemeTypography = {
+export const themeTypography: TThemeTypography = {
   'xs-400': {
     fontSize: 12,
     fontWeight: '400',
@@ -79,6 +80,11 @@ export const themeTypography: IThemeTypography = {
   'm-600': {
     fontSize: 16,
     fontWeight: '600',
+    lineHeight: 20,
+  },
+  'lg-400': {
+    fontSize: 18,
+    fontWeight: '400',
     lineHeight: 20,
   },
   'lg-600': {

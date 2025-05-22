@@ -1,10 +1,9 @@
 import { createStyleSheet } from '@/helpers/createStyleSheet';
-
-import type { ITypographyVariant } from './types';
+import type { TTypographyVariant } from '@/types';
 
 export const getStyles = createStyleSheet(({ typography, colors }) => ({
   typography: (
-    variant: ITypographyVariant,
+    variant: TTypographyVariant,
     centered?: boolean,
     isLink?: boolean
   ) => ({

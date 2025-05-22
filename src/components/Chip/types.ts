@@ -1,3 +1,5 @@
+import type { StyleProp, ViewStyle } from 'react-native';
+
 import type { TThemeColorsKeys } from '@/types/theme';
 
 export interface IChipProps {
@@ -6,4 +8,5 @@ export interface IChipProps {
   id?: string;
   onRemove?(id: string): void;
   color?: TThemeColorsKeys;
+  style?: StyleProp<ViewStyle>;
 }

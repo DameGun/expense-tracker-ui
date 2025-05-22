@@ -1,54 +1,69 @@
-import type { FC, PropsWithChildren } from 'react';
-import { Pressable, View } from 'react-native';
+import { forwardRef, type PropsWithChildren } from 'react';
+import {
+  type GestureResponderEvent,
+  type LayoutChangeEvent,
+  Pressable,
+  View,
+} from 'react-native';
 
-import { ChevronDownIcon } from '@/assets';
+import { CloseIcon } from '@/assets';
 import { Typography } from '@/components/Typography';
 import { useStyles, useTheme } from '@/hooks';
-import type { IPropsWithIcon } from '@/types';
+import type { TIconComponentType } from '@/types';
 
 import { getStyles } from './styles';
 
-interface IBaseInputProps extends IPropsWithIcon, PropsWithChildren {
-  handlePress?: VoidFunction;
+interface IBaseInputProps extends PropsWithChildren {
+  handlePress?(event: GestureResponderEvent): void;
+  handleClear?: VoidFunction;
+  LeftAddon?: TIconComponentType;
+  RightAddon?: TIconComponentType;
   value?: string | number;
+  showClear?: boolean;
   placeholder?: string;
-  isShowChevron?: boolean;
-  isChevronExpanded?: boolean;
   replaceTextByChildren?: boolean;
+  onLayout?(event: LayoutChangeEvent): void;
 }
 
-export const BaseInput: FC<IBaseInputProps> = ({
-  IconComponent,
-  handlePress,
-  placeholder,
-  value,
-  isShowChevron,
-  isChevronExpanded,
-  children,
-  replaceTextByChildren,
-}) => {
-  const colors = useTheme((context) => context.currentTheme.colors);
-  const styles = useStyles(getStyles);
+export const BaseInput = forwardRef<View, IBaseInputProps>(
+  (
+    {
+      LeftAddon,
+      handlePress,
+      placeholder,
+      value,
+      RightAddon,
+      handleClear,
+      children,
+      showClear,
+      replaceTextByChildren,
+      onLayout,
+    },
+    ref
+  ) => {
+    const colors = useTheme((context) => context.currentTheme.colors);
+    const styles = useStyles(getStyles);
 
-  return (
-    <View style={styles.container}>
-      <Pressable style={styles.inputWrapper} onPress={handlePress}>
-        {IconComponent && <IconComponent color={colors.secondary} />}
-        {replaceTextByChildren ? (
-          children
-        ) : (
-          <Typography variant="s-400" style={styles.inputText(!value)}>
-            {value ?? placeholder}
-          </Typography>
-        )}
-        {isShowChevron && (
-          <ChevronDownIcon
-            viewStyle={styles.chevronIcon(isChevronExpanded)}
-            color={colors.secondary}
-          />
-        )}
-      </Pressable>
-      {!replaceTextByChildren && children}
-    </View>
-  );
-};
+    return (
+      <View style={styles.container} ref={ref} onLayout={onLayout}>
+        <Pressable style={styles.inputWrapper} onPress={handlePress}>
+          {LeftAddon && <LeftAddon color={colors.secondary} />}
+          {replaceTextByChildren ? (
+            children
+          ) : (
+            <Typography variant="s-400" style={styles.inputText(!value)}>
+              {value ?? placeholder}
+            </Typography>
+          )}
+          {showClear && (
+            <Pressable onPress={handleClear}>
+              <CloseIcon color={colors.secondary} />
+            </Pressable>
+          )}
+          {RightAddon && <RightAddon color={colors.secondary} />}
+        </Pressable>
+        {!replaceTextByChildren && children}
+      </View>
+    );
+  }
+);
