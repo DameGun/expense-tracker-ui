@@ -12,7 +12,8 @@
     "storybook:android": "npm run prepare:storybook && cross-env STORYBOOK_ENABLED='true' expo start --android",
     "prepare:storybook": "node build-prepare-script.js",
     "prepare:build": "node build-prepare-script.js --build",
-    "build": "npm run prepare:build && cross-env LIBRARY_BUILD='true' bob build && tsc-alias && cross-env LIBRARY_BUILD='false'"
+    "post:build": "node build-post-script.js",
+    "build": "npm run prepare:build && cross-env LIBRARY_BUILD='true' bob build && tsc-alias && cross-env LIBRARY_BUILD='false' && npm run post:build"
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",

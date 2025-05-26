@@ -31,7 +31,7 @@ export const ContentWrapper: FC<IContentWrapperProps> = ({
 
   if (!data?.length) {
     return (
-      <View style={styles.fallbackContainer}>
+      <View style={[styles.fallbackContainer, styles.additionalBorder]}>
         <View style={styles.emptyContainer}>
           <EmptyIcon color={colors.secondary} />
           <Typography variant="m-400">{emptyTitle ?? 'No data'}</Typography>

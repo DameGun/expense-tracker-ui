@@ -48,8 +48,6 @@ export const Select: FC<ISelectProps> = ({
     []
   );
 
-  console.log(triggerLayout);
-
   const handleSelect = useCallback(
     (value: TSelectValue) => {
       let selectedBefore: boolean;
@@ -115,15 +113,20 @@ export const Select: FC<ISelectProps> = ({
       RightAddon={renderSelectChevron(isDropdownVisible)}
       onLayout={onTriggerLayout}
     >
-      {triggerLayout && (
-        <Modal visible={isDropdownVisible} transparent>
-          <ScrollView style={styles.selectDropdown(triggerLayout)}>
-            {renderOptions}
-          </ScrollView>
-          <TouchableWithoutFeedback onPress={handleDropdown}>
-            <View style={styles.dropdownOverlay} />
-          </TouchableWithoutFeedback>
-        </Modal>
+      {/*{triggerLayout && (*/}
+      {/*  <Modal visible={isDropdownVisible} transparent>*/}
+      {/*    <ScrollView style={styles.selectDropdown(triggerLayout)}>*/}
+      {/*      {renderOptions}*/}
+      {/*    </ScrollView>*/}
+      {/*    <TouchableWithoutFeedback onPress={handleDropdown}>*/}
+      {/*      <View style={styles.dropdownOverlay} />*/}
+      {/*    </TouchableWithoutFeedback>*/}
+      {/*  </Modal>*/}
+      {/*)}*/}
+      {isDropdownVisible && (
+        <ScrollView style={styles.selectDropdown(triggerLayout)}>
+          {renderOptions}
+        </ScrollView>
       )}
     </BaseInput>
   );

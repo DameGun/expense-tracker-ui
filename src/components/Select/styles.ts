@@ -5,10 +5,12 @@ import { createStyleSheet, getColorWithOpacity } from '@/helpers';
 export const getStyles = createStyleSheet(({ constants, colors }) => ({
   selectDropdown: (triggerLayout: LayoutRectangle) => ({
     position: 'absolute',
-    width: triggerLayout.width,
     zIndex: 10,
-    top: triggerLayout.y + triggerLayout.height + 20,
-    left: triggerLayout.x,
+    width: '100%',
+    top: 65,
+    // width: triggerLayout.width,
+    // top: triggerLayout.y + triggerLayout.height + 20,
+    // left: triggerLayout.x,
     borderRadius: constants.borderRadius.sm,
     borderWidth: constants.borderWidth.sm,
     borderColor: getColorWithOpacity(colors.backgroundSecondary, 0.7),

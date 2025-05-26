@@ -16,13 +16,14 @@ interface IButtonLinkProps extends Omit<PressableProps, 'children'> {
 export const ButtonLink: FC<IButtonLinkProps> = ({
   children,
   textVariant = 's-400',
+  disabled,
   ...rest
 }) => {
   const styles = useStyles(getStyles);
 
   return (
     <Pressable style={styles.buttonLink} {...rest}>
-      <Typography variant={textVariant} style={styles.buttonLinkText}>
+      <Typography variant={textVariant} style={styles.buttonLinkText(disabled)}>
         {children}
       </Typography>
     </Pressable>
