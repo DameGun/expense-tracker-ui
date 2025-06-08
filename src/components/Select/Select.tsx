@@ -1,12 +1,5 @@
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
-import {
-  type LayoutChangeEvent,
-  type LayoutRectangle,
-  Modal,
-  ScrollView,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { type LayoutRectangle, ScrollView, View } from 'react-native';
 
 import { BaseInput } from '@/components/BaseInput';
 import { isSelectMultiple } from '@/components/Select/helpers';
@@ -24,6 +17,7 @@ export const Select: FC<ISelectProps> = ({
   selectedValue,
   placeholder,
   mode = 'single',
+  label,
 }) => {
   const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(
     null
@@ -112,6 +106,7 @@ export const Select: FC<ISelectProps> = ({
       LeftAddon={IconComponent}
       RightAddon={renderSelectChevron(isDropdownVisible)}
       onLayout={onTriggerLayout}
+      label={label}
     >
       {/*{triggerLayout && (*/}
       {/*  <Modal visible={isDropdownVisible} transparent>*/}

@@ -9,6 +9,8 @@ export * from './CloseIcon';
 export * from './CreditCardIcon';
 export * from './CurrenciesIcon';
 export * from './EmptyIcon';
+export * from './FilterIcon';
+export * from './FilterOffIcon';
 export * from './HomeIcon';
 export * from './LockIcon';
 export * from './LogoIcon';

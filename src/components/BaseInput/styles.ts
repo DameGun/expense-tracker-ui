@@ -3,6 +3,9 @@ import { createStyleSheet } from '@/helpers/createStyleSheet';
 export const getStyles = createStyleSheet(({ constants, colors }) => ({
   container: {
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: constants.spacing.xs,
     marginBottom: 18,
   },
   inputWrapper: {

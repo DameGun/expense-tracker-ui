@@ -23,6 +23,7 @@ interface IBaseInputProps extends PropsWithChildren {
   placeholder?: string;
   replaceTextByChildren?: boolean;
   onLayout?(event: LayoutChangeEvent): void;
+  label?: string;
 }
 
 export const BaseInput = forwardRef<View, IBaseInputProps>(
@@ -38,6 +39,7 @@ export const BaseInput = forwardRef<View, IBaseInputProps>(
       showClear,
       replaceTextByChildren,
       onLayout,
+      label,
     },
     ref
   ) => {
@@ -46,6 +48,7 @@ export const BaseInput = forwardRef<View, IBaseInputProps>(
 
     return (
       <View style={styles.container} ref={ref} onLayout={onLayout}>
+        {label && <Typography variant="s-400">{label}</Typography>}
         <Pressable style={styles.inputWrapper} onPress={handlePress}>
           {LeftAddon && <LeftAddon color={colors.secondary} />}
           {replaceTextByChildren ? (

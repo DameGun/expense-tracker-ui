@@ -22,9 +22,15 @@ interface ISelectMultipleProps {
 
 interface IBaseSelectProps extends IPropsWithIcon {
   options: Array<ISelectOption>;
-  onSelect(value?: TSelectValue, type?: TSelectValueSelectionType): void;
+  onSelect: TSelectFn;
   placeholder: string;
+  label?: string;
 }
+
+export type TSelectFn = (
+  value?: TSelectValue,
+  type?: TSelectValueSelectionType
+) => void;
 
 export type ISelectProps = IBaseSelectProps &
   (ISelectSingleProps | ISelectMultipleProps);
