@@ -5,9 +5,9 @@ import { Text } from 'react-native';
 import { useStyles } from '@/hooks/useStyles';
 
 import { getStyles } from './styles';
-import type { TTypographyProps } from './types';
+import type { ITypographyProps } from './types';
 
-export const Typography = forwardRef<Text, TTypographyProps>(
+export const Typography = forwardRef<Text, ITypographyProps>(
   ({ variant, centered, style, isLink, href, replace, ...props }, ref) => {
     const styles = useStyles(getStyles);
 

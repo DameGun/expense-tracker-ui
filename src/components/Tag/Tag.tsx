@@ -9,11 +9,17 @@ import type { ITagProps } from './types';
 import { Typography } from '../Typography';
 
 export const Tag = forwardRef<View, ITagProps>(
-  ({ variant = 'default', color, children, borderColor, textColor }, ref) => {
+  (
+    { variant = 'default', style, color, children, borderColor, textColor },
+    ref
+  ) => {
     const styles = useStyles(getStyles);
 
     return (
-      <View ref={ref} style={styles.container(variant, color, borderColor)}>
+      <View
+        ref={ref}
+        style={[styles.container(variant, color, borderColor), style]}
+      >
         <Typography style={styles.text(variant, textColor)} variant="xs-600">
           {children}
         </Typography>

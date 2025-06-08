@@ -9,12 +9,12 @@ import type { ISwitchProps } from './types';
 import { Typography } from '../Typography';
 
 export const Switch = forwardRef<View, ISwitchProps>(
-  ({ enabled, onChange, text, switchPosition = 'left' }, ref) => {
+  ({ enabled, style, onChange, text, switchPosition = 'left' }, ref) => {
     const styles = useStyles(getStyles);
     const colors = useTheme((theme) => theme.currentTheme.colors);
 
     return (
-      <View ref={ref} style={styles.container(switchPosition)}>
+      <View ref={ref} style={[styles.container(switchPosition), style]}>
         <RNSwitch
           value={enabled}
           onValueChange={onChange}

@@ -1,6 +1,8 @@
 import type { PropsWithChildren } from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
-export interface IContentCardProps extends PropsWithChildren {
-  style?: StyleProp<ViewStyle>;
-}
+import type { IComponentWithStyleProps } from '@/types';
+
+export interface IContentCardProps
+  extends PropsWithChildren,
+    IComponentWithStyleProps<ViewStyle> {}

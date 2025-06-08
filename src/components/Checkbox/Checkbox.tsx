@@ -10,12 +10,12 @@ import type { ICheckboxProps } from './types';
 import { Typography } from '../Typography';
 
 export const Checkbox = forwardRef<View, ICheckboxProps>(
-  ({ size = 'small', onChange, checked, text }, ref) => {
+  ({ size = 'small', style, onChange, checked, text }, ref) => {
     const styles = useStyles(getStyles);
     const colors = useTheme((theme) => theme.currentTheme.colors);
 
     return (
-      <Pressable ref={ref} style={styles.container} onPress={onChange}>
+      <Pressable ref={ref} style={[styles.container, style]} onPress={onChange}>
         <View style={styles.checkbox(size, checked)}>
           <CheckIcon
             style={styles.icon(size)}

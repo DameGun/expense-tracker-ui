@@ -21,6 +21,9 @@ export const Input = <
 }: TTextInputProps<TFieldNames, TName>) => {
   const [isFocused, setIsFocused] = useState(false);
 
+  const colors = useTheme((context) => context.currentTheme.colors);
+  const styles = useStyles(getStyles);
+
   const handleFocus = useCallback(() => {
     setIsFocused(true);
   }, []);
@@ -37,9 +40,6 @@ export const Input = <
     (onChange: (...value: any[]) => void) => () => onChange(undefined),
     []
   );
-
-  const colors = useTheme((context) => context.currentTheme.colors);
-  const styles = useStyles(getStyles);
 
   return (
     <Controller

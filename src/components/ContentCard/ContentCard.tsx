@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useStyles } from '@/hooks/useStyles';
 
 import { getStyles } from './styles';
-import type { IContentCardProps } from '@/components/ContentCard/types';
+import type { IContentCardProps } from './types';
 
 export const ContentCard = forwardRef<View, IContentCardProps>(
   ({ children, style }, ref) => {
