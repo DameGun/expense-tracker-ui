@@ -22,11 +22,9 @@ export const OTPInput: FC<IOTPInputProps> = ({
   setPin,
   disabled,
 }) => {
-  const refs = useRef<Array<Nullable<TextInput>>>([]);
+  const refs = useRef<Nullable<TextInput>[]>([]);
   const [focusedIndex, setFocusedIndex] = useState<Nullable<number>>(0);
-  const [codes, setCodes] = useState<Array<string>>(
-    new Array(OTP_LENGTH).fill(0)
-  );
+  const [codes, setCodes] = useState<string[]>(new Array(OTP_LENGTH).fill(0));
   const styles = useStyles(getStyles);
 
   const handleFocusedIndex = useCallback(
@@ -90,7 +88,9 @@ export const OTPInput: FC<IOTPInputProps> = ({
           <TextInput
             key={index}
             editable={!disabled}
-            ref={(el) => (refs.current[index] = el)}
+            ref={(el) => {
+              refs.current[index] = el;
+            }}
             autoComplete="one-time-code"
             enterKeyHint="next"
             inputMode="numeric"

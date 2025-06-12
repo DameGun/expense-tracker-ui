@@ -1,10 +1,10 @@
 const fs = require('node:fs');
 
 console.log(
-  `[expense-tracker-ui-internal] Copying "lib" folder to main project`
+  `[expense-tracker-ui-internal] Copying "dist" folder to main project`
 );
 
-fs.cpSync('./lib', '../expense-tracker/node_modules/expense-tracker-ui/lib', {
+fs.cpSync('./dist', '../expense-tracker/node_modules/expense-tracker-ui', {
   recursive: true,
 });
 

@@ -1,10 +1,12 @@
-import type { ViewStyle } from 'react-native';
+import type { View, ViewStyle } from 'react-native';
 
-import type { IComponentWithStyleProps } from '@/types';
+import type { IComponentWithStyleProps, PropsWithRef } from '@/types';
 
 export type TCheckboxSize = 'small' | 'medium';
 
-export interface ICheckboxProps extends IComponentWithStyleProps<ViewStyle> {
+export interface ICheckboxProps
+  extends IComponentWithStyleProps<ViewStyle>,
+    PropsWithRef<View> {
   checked: boolean;
   size?: TCheckboxSize;
   onChange: VoidFunction;

@@ -1,5 +1,4 @@
-import { Link } from 'expo-router';
-import { forwardRef, useMemo } from 'react';
+import { type FC } from 'react';
 import { Text } from 'react-native';
 
 import { useStyles } from '@/hooks/useStyles';
@@ -7,26 +6,20 @@ import { useStyles } from '@/hooks/useStyles';
 import { getStyles } from './styles';
 import type { ITypographyProps } from './types';
 
-export const Typography = forwardRef<Text, ITypographyProps>(
-  ({ variant, centered, style, isLink, href, replace, ...props }, ref) => {
-    const styles = useStyles(getStyles);
+export const Typography: FC<ITypographyProps> = ({
+  variant,
+  centered,
+  style,
+  ref,
+  ...props
+}) => {
+  const styles = useStyles(getStyles);
 
-    const combinedStyles = useMemo(
-      () => [styles.typography(variant, centered, isLink), style],
-      [variant, centered, isLink, style, styles]
-    );
-
-    const BaseTextComponent = useMemo(
-      () => <Text ref={ref} {...props} style={combinedStyles} />,
-      [ref, props, combinedStyles]
-    );
-
-    if (!isLink) return BaseTextComponent;
-
-    return (
-      <Link href={href} asChild style={combinedStyles} replace={replace}>
-        {BaseTextComponent}
-      </Link>
-    );
-  }
-);
+  return (
+    <Text
+      {...props}
+      ref={ref}
+      style={[styles.typography(variant, centered), style]}
+    />
+  );
+};

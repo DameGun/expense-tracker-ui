@@ -1,12 +1,18 @@
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
-import { type LayoutRectangle, ScrollView, View } from 'react-native';
+import {
+  type LayoutRectangle,
+  Modal,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import { BaseInput } from '@/components/BaseInput';
-import { isSelectMultiple } from '@/components/Select/helpers';
 import { useStyles } from '@/hooks';
 
 import { renderSelectChevron } from './components/SelectChevron';
 import { SelectOption } from './components/SelectOption';
+import { isSelectMultiple } from './helpers';
 import { getStyles } from './styles';
 import type { ISelectProps, TSelectValue } from './types';
 
@@ -27,7 +33,8 @@ export const Select: FC<ISelectProps> = ({
   const styles = useStyles(getStyles);
 
   const onTriggerLayout = useCallback(() => {
-    inputRef?.current.measure((x, y, width, height, pageX, pageY) => {
+    inputRef.current?.measure((x, y, width, height, pageX, pageY) => {
+      console.log({ x, y, width, height, pageX, pageY });
       setTriggerLayout({
         x: pageX,
         y: pageY,
@@ -35,7 +42,7 @@ export const Select: FC<ISelectProps> = ({
         height,
       });
     });
-  }, [inputRef]);
+  }, [inputRef.current]);
 
   const handleDropdown = useCallback(
     () => setIsDropdownVisible((prev) => !prev),
@@ -108,21 +115,21 @@ export const Select: FC<ISelectProps> = ({
       onLayout={onTriggerLayout}
       label={label}
     >
-      {/*{triggerLayout && (*/}
-      {/*  <Modal visible={isDropdownVisible} transparent>*/}
-      {/*    <ScrollView style={styles.selectDropdown(triggerLayout)}>*/}
-      {/*      {renderOptions}*/}
-      {/*    </ScrollView>*/}
-      {/*    <TouchableWithoutFeedback onPress={handleDropdown}>*/}
-      {/*      <View style={styles.dropdownOverlay} />*/}
-      {/*    </TouchableWithoutFeedback>*/}
-      {/*  </Modal>*/}
-      {/*)}*/}
-      {isDropdownVisible && (
-        <ScrollView style={styles.selectDropdown(triggerLayout)}>
-          {renderOptions}
-        </ScrollView>
+      {triggerLayout && (
+        <Modal visible={isDropdownVisible} transparent>
+          <ScrollView style={styles.selectDropdown(triggerLayout)}>
+            {renderOptions}
+          </ScrollView>
+          <TouchableWithoutFeedback onPress={handleDropdown}>
+            <View style={styles.dropdownOverlay} />
+          </TouchableWithoutFeedback>
+        </Modal>
       )}
+      {/*{isDropdownVisible && (*/}
+      {/*  <ScrollView style={styles.selectDropdown(triggerLayout)}>*/}
+      {/*    {renderOptions}*/}
+      {/*  </ScrollView>*/}
+      {/*)}*/}
     </BaseInput>
   );
 };

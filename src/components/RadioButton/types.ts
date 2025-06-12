@@ -1,10 +1,12 @@
-import type { ViewStyle } from 'react-native';
+import type { View, ViewStyle } from 'react-native';
 
-import type { IComponentWithStyleProps } from '@/types';
+import type { IComponentWithStyleProps, PropsWithRef } from '@/types';
 
 export type TRadioButtonSize = 'small' | 'medium';
 
-export interface IRadioButtonProps extends IComponentWithStyleProps<ViewStyle> {
+export interface IRadioButtonProps
+  extends IComponentWithStyleProps<ViewStyle>,
+    PropsWithRef<View> {
   selected: boolean;
   id: string | number;
   text?: string;

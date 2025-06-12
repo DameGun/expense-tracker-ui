@@ -1,9 +1,11 @@
-import type { ViewStyle } from 'react-native';
+import type { View, ViewStyle } from 'react-native';
 
-import type { IComponentWithStyleProps } from '@/types';
+import type { IComponentWithStyleProps, PropsWithRef } from '@/types';
 import type { TThemeColorsKeys } from '@/types/theme';
 
-export interface IChipProps extends IComponentWithStyleProps<ViewStyle> {
+export interface IChipProps
+  extends IComponentWithStyleProps<ViewStyle>,
+    PropsWithRef<View> {
   leftContent?: string;
   children: string;
   id?: string;

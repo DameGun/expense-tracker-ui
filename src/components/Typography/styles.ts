@@ -4,11 +4,10 @@ import type { TTypographyVariant } from '@/types';
 export const getStyles = createStyleSheet(({ typography, colors }) => ({
   typography: (
     variant: TTypographyVariant,
-    centered?: boolean,
-    isLink?: boolean
+    centered?: boolean
   ) => ({
     ...typography[variant],
     textAlign: centered ? 'center' : 'auto',
-    color: isLink ? colors.primary : colors.textBlack,
+    color: colors.textBlack,
   }),
 }));
