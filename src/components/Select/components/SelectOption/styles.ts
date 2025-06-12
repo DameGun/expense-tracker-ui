@@ -1,23 +1,18 @@
-import type { PressableStateCallbackType } from 'react-native';
-
 import { createStyleSheet, getColorWithOpacity } from '@/helpers';
 
 export const getStyles = createStyleSheet(({ constants, colors }) => ({
-  selectOption:
-    (isSelected: boolean) =>
-    ({ pressed }: PressableStateCallbackType) => ({
-      borderRadius: constants.borderRadius.sm,
-      borderWidth: constants.borderWidth.sm,
-      borderColor: 'transparent',
-      backgroundColor: isSelected
-        ? colors.primary
-        : getColorWithOpacity(colors.secondary, 0.1),
-      paddingHorizontal: constants.spacing.sm,
-      paddingVertical: constants.spacing.sm,
-      marginVertical: constants.spacing.xs2,
-      marginHorizontal: constants.spacing.xs2,
-      opacity: pressed ? constants.opacity.md : constants.opacity.full,
-    }),
+  selectOption: (isSelected: boolean) => ({
+    borderRadius: constants.borderRadius.sm,
+    borderWidth: constants.borderWidth.sm,
+    borderColor: 'transparent',
+    backgroundColor: isSelected
+      ? colors.primary
+      : getColorWithOpacity(colors.secondary, 0.1),
+    paddingHorizontal: constants.spacing.sm,
+    paddingVertical: constants.spacing.sm,
+    marginVertical: constants.spacing.xs2,
+    marginHorizontal: constants.spacing.xs2,
+  }),
   selectOptionText: (isSelected: boolean) => ({
     color: isSelected ? colors.textWhite : colors.textBlack,
   }),

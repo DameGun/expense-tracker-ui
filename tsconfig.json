@@ -1,13 +1,13 @@
 {
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "expense-tracker-ui": ["./src/index"]
     },
-    "outDir": "lib/typescript",
     "verbatimModuleSyntax": true
-  },
-  "extends": "expo/tsconfig.base"
+  }
 }

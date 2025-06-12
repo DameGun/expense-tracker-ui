@@ -16,12 +16,12 @@ interface ISelectSingleProps {
 }
 
 interface ISelectMultipleProps {
-  selectedValue?: Array<TSelectValue>;
+  selectedValue?: TSelectValue[];
   mode: 'multiple';
 }
 
 interface IBaseSelectProps extends IPropsWithIcon {
-  options: Array<ISelectOption>;
+  options: ISelectOption[];
   onSelect: TSelectFn;
   placeholder: string;
   label?: string;

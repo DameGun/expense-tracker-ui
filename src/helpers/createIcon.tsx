@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type {ReactNode} from 'react';
 import SVG from 'react-native-svg';
 
 import { DEFAULT_SVG_STYLE_PROPS } from '@/constants/svg';
 import type { ISVGProps } from '@/types/assets';
 
 export const createIcon =
-  (renderFn: FC<ISVGProps>) =>
+  (renderFn: (props: ISVGProps) => ReactNode) =>
   ({
     color = 'white',
     style = DEFAULT_SVG_STYLE_PROPS,
