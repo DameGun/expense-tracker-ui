@@ -1,19 +1,27 @@
 import { type FC, type PropsWithChildren } from 'react';
 import {
   type GestureResponderEvent,
-  type LayoutChangeEvent,
   Pressable,
+  TouchableOpacity,
   View,
+  type ViewStyle,
 } from 'react-native';
 
 import { CloseIcon } from '@/assets';
 import { Typography } from '@/components/Typography';
 import { useStyles, useTheme } from '@/hooks';
-import type { PropsWithRef, TIconComponentType } from '@/types';
+import type {
+  IComponentWithStyleProps,
+  PropsWithRef,
+  TIconComponentType,
+} from '@/types';
 
 import { getStyles } from './styles';
 
-interface IBaseInputProps extends PropsWithChildren, PropsWithRef<View> {
+interface IBaseInputProps
+  extends PropsWithChildren,
+    IComponentWithStyleProps<ViewStyle>,
+    PropsWithRef<View> {
   handlePress?(event: GestureResponderEvent): void;
   handleClear?: VoidFunction;
   LeftAddon?: TIconComponentType;
@@ -22,7 +30,6 @@ interface IBaseInputProps extends PropsWithChildren, PropsWithRef<View> {
   showClear?: boolean;
   placeholder?: string;
   replaceTextByChildren?: boolean;
-  onLayout?(event: LayoutChangeEvent): void;
   label?: string;
 }
 
@@ -36,15 +43,15 @@ export const BaseInput: FC<IBaseInputProps> = ({
   children,
   showClear,
   replaceTextByChildren,
-  onLayout,
   label,
   ref,
+  style,
 }) => {
   const colors = useTheme((context) => context.currentTheme.colors);
   const styles = useStyles(getStyles);
 
   return (
-    <View style={styles.container} ref={ref} onLayout={onLayout}>
+    <View style={[styles.container, style]} ref={ref}>
       {label && <Typography variant="s-400">{label}</Typography>}
       <Pressable style={styles.inputWrapper} onPress={handlePress}>
         {LeftAddon && <LeftAddon color={colors.secondary} />}
@@ -56,11 +63,15 @@ export const BaseInput: FC<IBaseInputProps> = ({
           </Typography>
         )}
         {showClear && (
-          <Pressable onPress={handleClear}>
+          <TouchableOpacity onPress={handleClear}>
             <CloseIcon color={colors.secondary} />
-          </Pressable>
+          </TouchableOpacity>
         )}
-        {RightAddon && <RightAddon color={colors.secondary} />}
+        {RightAddon && (
+          <TouchableOpacity onPress={handlePress}>
+            <RightAddon color={colors.secondary} />
+          </TouchableOpacity>
+        )}
       </Pressable>
       {!replaceTextByChildren && children}
     </View>

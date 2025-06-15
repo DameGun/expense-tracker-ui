@@ -12,12 +12,12 @@ interface IContentWrapperProps
     IComponentWithStyleProps<ViewStyle>,
     PropsWithRef<View> {
   isLoading?: boolean;
-  data?: any[];
+  contentLength?: number;
   emptyTitle?: string;
 }
 
 export const ContentWrapper: FC<IContentWrapperProps> = ({
-  data,
+  contentLength,
   style,
   isLoading,
   emptyTitle,
@@ -35,7 +35,7 @@ export const ContentWrapper: FC<IContentWrapperProps> = ({
     );
   }
 
-  if (data?.length) return children;
+  if (contentLength) return children;
 
   return (
     <View

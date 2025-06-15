@@ -2,7 +2,12 @@ import type { IPropsWithIcon } from '@/types';
 
 export type TSelectMode = 'single' | 'multiple';
 export type TSelectValue = string | number;
-export type TSelectValueSelectionType = 'select' | 'remove';
+export type TSelectFnMultiple = (selected: TSelectValue[]) => void;
+export type TSelectFnSingle = (selected?: TSelectValue) => void;
+export type THandleSelectFn = (
+  selectedValue: ISelectOption,
+  isSelectedBefore: boolean
+) => void;
 
 export interface ISelectOption {
   id: TSelectValue;
@@ -11,26 +16,22 @@ export interface ISelectOption {
 }
 
 interface ISelectSingleProps {
-  selectedValue?: TSelectValue;
+  defaultSelected?: TSelectValue;
+  onChange: TSelectFnSingle;
   mode: 'single';
 }
 
 interface ISelectMultipleProps {
-  selectedValue?: TSelectValue[];
+  defaultSelected?: TSelectValue[];
+  onChange: TSelectFnMultiple;
   mode: 'multiple';
 }
 
 interface IBaseSelectProps extends IPropsWithIcon {
   options: ISelectOption[];
-  onSelect: TSelectFn;
   placeholder: string;
   label?: string;
 }
-
-export type TSelectFn = (
-  value?: TSelectValue,
-  type?: TSelectValueSelectionType
-) => void;
 
 export type ISelectProps = IBaseSelectProps &
   (ISelectSingleProps | ISelectMultipleProps);

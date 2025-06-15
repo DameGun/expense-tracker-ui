@@ -1,3 +1,4 @@
+export * from './ArrowBackIcon';
 export * from './ArrowReloadIcon';
 export * from './BookmarkIcon';
 export * from './CalendarIcon';
@@ -17,6 +18,7 @@ export * from './LogoIcon';
 export * from './MailIcon';
 export * from './PlaceMarkIcon';
 export * from './ProfileIcon';
+export * from './SearchIcon';
 export * from './ShoppingBagIcon';
 export * from './TransactionsIcon';
 export * from './TrendingUpIcon';

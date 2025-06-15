@@ -11,7 +11,7 @@ export const getStyles = createStyleSheet(({ constants, colors }) => ({
     paddingHorizontal: constants.spacing.sm,
     paddingVertical: constants.spacing.sm,
     marginVertical: constants.spacing.xs2,
-    marginHorizontal: constants.spacing.xs2,
+    marginHorizontal: constants.spacing.sm,
   }),
   selectOptionText: (isSelected: boolean) => ({
     color: isSelected ? colors.textWhite : colors.textBlack,

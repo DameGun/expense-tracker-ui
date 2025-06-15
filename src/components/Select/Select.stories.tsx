@@ -54,7 +54,7 @@ type Story = StoryObj<typeof meta>;
 export const Single: Story = {
   args: {
     options: MOCK_CURRENCIES,
-    onSelect: console.log,
+    onChange: console.log,
     placeholder: 'Select',
     selectedValue: 1,
     label: 'Single',
@@ -65,7 +65,7 @@ export const Single: Story = {
 export const Multiple: Story = {
   args: {
     options: MOCK_CURRENCIES,
-    onSelect: console.log,
+    onChange: console.log,
     placeholder: 'Select',
     selectedValue: [],
     label: 'Multiple',

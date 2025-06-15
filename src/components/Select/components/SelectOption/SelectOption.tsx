@@ -1,4 +1,4 @@
-import { type FC, useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import { Typography } from '@/components/Typography';
@@ -8,27 +8,44 @@ import { getStyles } from './styles';
 
 import type { ISelectOption, TSelectValue } from '../../types';
 
-interface ISelectOptionProps extends ISelectOption {
-  onSelect: (value: TSelectValue) => void;
-  isSelected: boolean;
+interface ISelectOptionProps {
+  onSelect: (item: ISelectOption, isSelectedBefore: boolean) => void;
+  selectedOptions: Map<TSelectValue, ISelectOption>;
 }
 
-export const SelectOption: FC<ISelectOptionProps> = ({
-  label,
-  value,
+interface ISelectionOptionRenderProps {
+  item: ISelectOption;
+}
+
+export const selectOptionRenderer =
+  (props: ISelectOptionProps) => (renderProps: ISelectionOptionRenderProps) => (
+    <SelectOption {...props} {...renderProps} />
+  );
+
+const SelectOption = ({
+  item,
   onSelect,
-  isSelected,
-}) => {
+  selectedOptions,
+}: ISelectionOptionRenderProps & ISelectOptionProps) => {
+  const { label, id } = item;
   const styles = useStyles(getStyles);
 
-  const handlePress = useCallback(() => onSelect(value), [value, onSelect]);
+  const isSelected = useMemo(
+    () => selectedOptions.has(id),
+    [selectedOptions, id]
+  );
+
+  const handlePress = useCallback(
+    () => onSelect(item, isSelected),
+    [item, onSelect, isSelected]
+  );
 
   return (
     <TouchableOpacity
       style={styles.selectOption(isSelected)}
       onPress={handlePress}
     >
-      <Typography style={styles.selectOptionText(isSelected)} variant="xs-400">
+      <Typography style={styles.selectOptionText(isSelected)} variant="s-500">
         {label}
       </Typography>
     </TouchableOpacity>

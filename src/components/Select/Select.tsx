@@ -1,135 +1,44 @@
-import { type FC, useCallback, useMemo, useRef, useState } from 'react';
-import {
-  type LayoutRectangle,
-  Modal,
-  ScrollView,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { type FC } from 'react';
 
 import { BaseInput } from '@/components/BaseInput';
-import { useStyles } from '@/hooks';
 
-import { renderSelectChevron } from './components/SelectChevron';
-import { SelectOption } from './components/SelectOption';
-import { isSelectMultiple } from './helpers';
-import { getStyles } from './styles';
-import type { ISelectProps, TSelectValue } from './types';
+import { SelectChevron } from './components/SelectChevron';
+import { SelectModal } from './components/SelectModal';
+import { useHandleSelect, useHandleSelectModal } from './hooks';
+import type { ISelectProps } from './types';
 
 export const Select: FC<ISelectProps> = ({
-  onSelect,
+  onChange,
   options,
   IconComponent,
-  selectedValue,
   placeholder,
   mode = 'single',
   label,
+  defaultSelected,
 }) => {
-  const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(
-    null
-  );
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const inputRef = useRef<View>(null);
-  const styles = useStyles(getStyles);
+  const { isModalVisible, handleModal } = useHandleSelectModal();
 
-  const onTriggerLayout = useCallback(() => {
-    inputRef.current?.measure((x, y, width, height, pageX, pageY) => {
-      console.log({ x, y, width, height, pageX, pageY });
-      setTriggerLayout({
-        x: pageX,
-        y: pageY,
-        width,
-        height,
-      });
-    });
-  }, [inputRef.current]);
-
-  const handleDropdown = useCallback(
-    () => setIsDropdownVisible((prev) => !prev),
-    []
-  );
-
-  const handleSelect = useCallback(
-    (value: TSelectValue) => {
-      let selectedBefore: boolean;
-
-      if (isSelectMultiple(mode, selectedValue)) {
-        selectedBefore = selectedValue.includes(value);
-      } else {
-        selectedBefore = selectedValue === value;
-      }
-
-      onSelect(value, selectedBefore ? 'remove' : 'select');
-
-      if (mode === 'single') handleDropdown();
-    },
-    [onSelect, handleDropdown, mode, selectedValue]
-  );
-
-  const selectedOption = useMemo(() => {
-    if (isSelectMultiple(mode, selectedValue)) return placeholder;
-
-    return options.find(({ value }) => value === selectedValue)?.label;
-  }, [selectedValue, options, placeholder, mode]);
-
-  const renderOptions = useMemo(
-    () =>
-      options.map((option) => {
-        let isSelected: boolean;
-
-        if (isSelectMultiple(mode, selectedValue)) {
-          isSelected = selectedValue.includes(option.value);
-        } else {
-          isSelected = selectedValue === option.value;
-        }
-
-        return (
-          <SelectOption
-            key={option.id}
-            onSelect={handleSelect}
-            isSelected={isSelected}
-            {...option}
-          />
-        );
-      }),
-    [handleSelect, options, mode, selectedValue]
-  );
-
-  const handleClear = useCallback(() => onSelect(), [onSelect]);
-
-  const isShowClear = useMemo(
-    () => mode === 'single' && selectedValue !== undefined,
-    [selectedValue, mode]
-  );
+  const { handleClear, handleSelect, selected, displayedOption } =
+    useHandleSelect({ mode, placeholder, options, onChange, defaultSelected });
 
   return (
     <BaseInput
       handleClear={handleClear}
-      handlePress={handleDropdown}
-      value={selectedOption}
-      showClear={isShowClear}
-      ref={inputRef}
+      handlePress={handleModal}
+      value={displayedOption}
+      showClear={!!selected.size}
       placeholder={placeholder}
       LeftAddon={IconComponent}
-      RightAddon={renderSelectChevron(isDropdownVisible)}
-      onLayout={onTriggerLayout}
+      RightAddon={SelectChevron}
       label={label}
     >
-      {triggerLayout && (
-        <Modal visible={isDropdownVisible} transparent>
-          <ScrollView style={styles.selectDropdown(triggerLayout)}>
-            {renderOptions}
-          </ScrollView>
-          <TouchableWithoutFeedback onPress={handleDropdown}>
-            <View style={styles.dropdownOverlay} />
-          </TouchableWithoutFeedback>
-        </Modal>
-      )}
-      {/*{isDropdownVisible && (*/}
-      {/*  <ScrollView style={styles.selectDropdown(triggerLayout)}>*/}
-      {/*    {renderOptions}*/}
-      {/*  </ScrollView>*/}
-      {/*)}*/}
+      <SelectModal
+        visible={isModalVisible}
+        onClose={handleModal}
+        options={options}
+        handleSelect={handleSelect}
+        selectedOptions={selected}
+      />
     </BaseInput>
   );
 };
